@@ -11,6 +11,12 @@ keras = "*"
 torch = "*"
 scipy = "*"
 jupyterlab = "*"
+ipykernel = "*"
+sklearn = "*"
+scikit-learn = "*"
+chart-studio = "*"
+matplotlib = "*"
+seaborn = "*"
 
 [dev-packages]
 
