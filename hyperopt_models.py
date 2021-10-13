@@ -11,7 +11,7 @@ def get_hyper_opt_conf(train_shape: tuple) -> list:
 		"EPOCHS": 1,
 		"model": Sequential(),
 		"optimizer": "adam",
-		"loss_function": "mse",
+		"loss_function": "categorical_crossentropy",
 		"layers": [{
 			"layer_type": LSTM,
 			"layer_arguments": {
@@ -23,7 +23,8 @@ def get_hyper_opt_conf(train_shape: tuple) -> list:
 		{
 			"layer_type": Dense,
 			"layer_arguments": {
-				"units": 1
+				"units": 3,
+                "activation": "softmax"
 			}
 		}]
 	},
