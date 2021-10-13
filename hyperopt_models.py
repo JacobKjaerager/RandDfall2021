@@ -8,6 +8,7 @@ def get_hyper_opt_conf(train_shape: tuple) -> list:
 	return [
 	{
 		"enabled_for_run": True,
+		"EPOCHS": 1,
 		"model": Sequential(),
 		"optimizer": "adam",
 		"loss_function": "mse",
@@ -27,7 +28,8 @@ def get_hyper_opt_conf(train_shape: tuple) -> list:
 		}]
 	},
 	{
-		"enabled_for_run": True,
+		"enabled_for_run": False,
+		"EPOCHS": 50,
 		"model": Sequential(),
 		"optimizer": "adam",
 		"loss_function": "mse",
