@@ -1,5 +1,7 @@
 import pandas as pd
 import scipy.io as spio
+import numpy as np
+from keras.utils import np_utils
 from math import floor, ceil
 from hyperopt_models import get_hyper_opt_conf
 from mapper import compile_and_train_models
@@ -16,10 +18,18 @@ if __name__ == '__main__':
            ceil(Control_dict["cross_validation_size"] * len(train_set["y_train"])):]
     X_test = test_set["x_test"]
     y_test = pd.DataFrame(test_set["y_test"])[[0]]
+    # To enable CNN and softmax
+    y_test = np_utils.to_categorical(y_test - 1, 3)
+    y_train = np_utils.to_categorical(y_train - 1, 3)
+    X_train = X_train.reshape(len(X_train), 40, 10, 1)
+    X_test = X_test.reshape(len(X_test), 40, 10, 1)
+    # 
     hyper_opt_models = get_hyper_opt_conf(train_shape=X_train[0].shape)
     models = compile_and_train_models(hyperopt_confs=hyper_opt_models,
                                       X_train=X_train,
                                       y_train=y_train,
+                                      X_test=X_test,
+                                      y_test=y_test,
                                       Control_dict=Control_dict)
 
     print("eawf")

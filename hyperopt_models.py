@@ -1,14 +1,13 @@
 import numpy as np
 from keras.models import Sequential
-from keras.layers import Dense
-from keras.layers import LSTM
+from keras.layers import Dense, LSTM, Conv2D, Flatten
 import marshal as json
 
 def get_hyper_opt_conf(train_shape: tuple) -> list:
 	return [
 	{
-		"enabled_for_run": True,
-		"EPOCHS": 1,
+		"enabled_for_run": False,
+		"EPOCHS": 50,
 		"model": Sequential(),
 		"optimizer": "adam",
 		"loss_function": "categorical_crossentropy",
@@ -55,6 +54,45 @@ def get_hyper_opt_conf(train_shape: tuple) -> list:
 				"layer_type": Dense,
 				"layer_arguments": {
 					"units": 1
+				}
+			}
+		]
+	},
+    {
+		"enabled_for_run": True,
+		"EPOCHS": 1,
+		"model": Sequential(),
+		"optimizer": "adam",
+		"loss_function": "categorical_crossentropy",
+		"layers": [
+			{
+				"layer_type": Conv2D,
+				"layer_arguments": {
+					"filters": 80,
+                    "kernel_size": 3,
+					"activation": "tanh",
+					"input_shape": train_shape
+				}
+			},
+			{
+				"layer_type": Conv2D,
+				"layer_arguments": {
+					"filters": 40,
+                    "kernel_size": 3,
+					"activation": "tanh",
+				}
+			},
+            {
+				"layer_type": Flatten,
+				"layer_arguments": {
+
+				}
+			},
+			{
+				"layer_type": Dense,
+				"layer_arguments": {
+					"units": 3,
+                    "activation": "softmax"
 				}
 			}
 		]
