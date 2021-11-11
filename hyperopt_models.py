@@ -2,13 +2,13 @@ import numpy as np
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import LSTM
-import marshal as json
+
 
 def get_hyper_opt_conf(train_shape: tuple) -> list:
 	return [
 	{
 		"enabled_for_run": True,
-		"EPOCHS": 1,
+		"EPOCHS": 50,
 		"model": Sequential(),
 		"optimizer": "adam",
 		"loss_function": "mse",
@@ -23,7 +23,7 @@ def get_hyper_opt_conf(train_shape: tuple) -> list:
 		{
 			"layer_type": Dense,
 			"layer_arguments": {
-				"units": 1
+				"units": 1,
 			}
 		}]
 	},
