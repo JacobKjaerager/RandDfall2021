@@ -17,6 +17,7 @@ scikit-learn = "*"
 chart-studio = "*"
 matplotlib = "*"
 seaborn = "*"
+alpha-vantage = "*"
 
 [dev-packages]
 

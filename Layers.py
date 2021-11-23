@@ -4,7 +4,8 @@
 @author: Dat Tran (dat.tranthanh@tut.fi)
 """
 from keras import backend as K
-from keras.engine.topology import Layer
+#from keras.engine.topology import Layer
+from keras.layers import Layer
 from keras import activations as Activations
 from keras import initializers as Initializers
 import numpy as np
@@ -19,7 +20,8 @@ class Constraint(object):
 
     def get_config(self):
         return {}
-    
+
+
 class MinMax(Constraint):
     """
     Customized min-max constraint for scalar
@@ -35,7 +37,6 @@ class MinMax(Constraint):
     def get_config(self):
         return {'min_value': self.min_value,
                 'max_value': self.max_value}
-        
 
 def nmodeproduct(x,w,mode):
     """

@@ -15,7 +15,13 @@ import pandas as pd
 # 4. fold: Cross-fold level between 1-9
 # 5. combine_test: Combine the test data, so if a fold below 9 is chosen, the 
 # test data will be combined
-def read_data(base_path, auction = False, normalization = 'Zscore', fold = 9, combine_test = True):
+
+
+def read_data(base_path: str,
+              auction: bool = False,
+              normalization: str = 'Zscore',
+              fold: int = 9,
+              combine_test: bool = True) -> list:
     # Set Auction or NoAuction
     if auction == True:
         auc_path = "Auction"
@@ -55,12 +61,14 @@ def read_data(base_path, auction = False, normalization = 'Zscore', fold = 9, co
     train_data = pd.DataFrame(train_data.T)
     test_data = pd.DataFrame(test_data.T)
     # Return the data
-    return train_data, test_data
+    return [train_data, test_data]
 
 # ready data for training:
 # 1. sample_size=100: the most 100 recent updates
 # 2. feature_num=40: 40 features per time stamp
 # 3. target_num=5: relative changes for the next 1,2,3,5 and 10 events(5 in total)
+
+
 def get_model_data(data, sample_size=100, feature_num=40, target_num=5):
     data = data.values
     shape = data.shape

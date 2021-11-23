@@ -1,49 +1,102 @@
-import numpy as np
 from keras.models import Sequential
-<<<<<<< HEAD
-from keras.layers import Dense
-from keras.layers import LSTM
+from keras.layers import Dense, LSTM, Conv2D, Flatten, \
+	ConvLSTM2D, BatchNormalization, Conv3D, Reshape
+import numpy as np
 
-=======
-from keras.layers import Dense, LSTM, Conv2D, Flatten
-import marshal as json
->>>>>>> 69c092ea9fce827ee6ded204d7525d7e60db6005
 
-def get_hyper_opt_conf(train_shape: tuple) -> list:
+def get_hyper_opt_conf() -> list:
 	return [
 	{
-<<<<<<< HEAD
-		"enabled_for_run": True,
-=======
 		"enabled_for_run": False,
->>>>>>> 69c092ea9fce827ee6ded204d7525d7e60db6005
-		"EPOCHS": 50,
+		"EPOCHS": 1,
+		"input_shape": (100, 40),
+		"target_numbers": 3,
+		"data_dimensions": 3,
 		"model": Sequential(),
 		"optimizer": "adam",
 		"loss_function": "categorical_crossentropy",
-		"layers": [{
-			"layer_type": LSTM,
-			"layer_arguments": {
-				"units": 50,
-				"activation": "relu",
-				"input_shape": train_shape,
+		"layers": [
+			{
+				"layer_type": LSTM,
+				"layer_arguments": {
+					"units": 50,
+					"activation": "tanh",
+					"input_shape": (100, 40)
+				}
+			},
+			{
+				"layer_type": Dense,
+				"layer_arguments": {
+						"units": 3,
+						"activation": "softmax"
+				}
 			}
-		},
-		{
-			"layer_type": Dense,
-			"layer_arguments": {
-<<<<<<< HEAD
-				"units": 1,
-=======
-				"units": 3,
-                "activation": "softmax"
->>>>>>> 69c092ea9fce827ee6ded204d7525d7e60db6005
-			}
-		}]
+		]
 	},
 	{
 		"enabled_for_run": False,
-		"EPOCHS": 50,
+		"EPOCHS": 1,
+		"input_shape": (100, 40),
+		"target_numbers": 3,
+		"data_dimensions": 4,
+		"model": Sequential(),
+		"optimizer": "adam",
+		"loss_function": "categorical_crossentropy",
+		"layers": [
+			{
+				"layer_type": ConvLSTM2D,
+				"layer_arguments": {
+					"filters": 64,
+					"kernel_size": (5, 5),
+					"padding": "same",
+					"return_sequences": True,
+					"activation": "tanh",
+					"input_shape": (),
+				}
+			},
+			{
+				"layer_type": BatchNormalization
+			},
+			{
+				"layer_type": ConvLSTM2D,
+				"layer_arguments": {
+					"filters": 64,
+					"kernel_size": (3, 3),
+					"padding": "same",
+					"return_sequences": True,
+					"activation": "tanh",
+				}
+			},
+			{
+				"layer_type": BatchNormalization
+			},
+			{
+				"layer_type": ConvLSTM2D,
+				"layer_arguments": {
+					"filters": 64,
+					"kernel_size": (1, 1),
+					"padding": "same",
+					"return_sequences": True,
+					"activation": "tanh",
+				}
+			},
+			{
+				"layer_type": Conv3D,
+				"layer_arguments": {
+					"filters": 1,
+					"kernel_size": (3, 3, 3),
+					"padding": "same",
+					"activation": "sigmoid",
+				}
+			},
+		]
+	},
+	{
+		"enabled_for_run": True,
+		"EPOCHS": 1,
+		"input_shape": (100, 40),
+		"target_numbers": 3,
+		"data_dimensions": 3,
 		"model": Sequential(),
 		"optimizer": "adam",
 		"loss_function": "mse",
@@ -54,7 +107,7 @@ def get_hyper_opt_conf(train_shape: tuple) -> list:
 					"units": 50,
 					"activation": "tanh",
 					"return_sequences": True,
-					"input_shape": train_shape
+					"input_shape": (100, 40)
 				}
 			},
 			{
@@ -67,14 +120,18 @@ def get_hyper_opt_conf(train_shape: tuple) -> list:
 			{
 				"layer_type": Dense,
 				"layer_arguments": {
-					"units": 1
+						"units": 3,
+						"activation": "softmax"
 				}
 			}
 		]
 	},
-    {
-		"enabled_for_run": True,
+	{
+		"enabled_for_run": False,
 		"EPOCHS": 1,
+		"input_shape": (100, 40),
+		"target_numbers": 3,
+		"data_dimensions": 4,
 		"model": Sequential(),
 		"optimizer": "adam",
 		"loss_function": "categorical_crossentropy",
@@ -83,20 +140,20 @@ def get_hyper_opt_conf(train_shape: tuple) -> list:
 				"layer_type": Conv2D,
 				"layer_arguments": {
 					"filters": 80,
-                    "kernel_size": 3,
+					"kernel_size": 3,
 					"activation": "tanh",
-					"input_shape": train_shape
+					"input_shape": ()
 				}
 			},
 			{
 				"layer_type": Conv2D,
 				"layer_arguments": {
 					"filters": 40,
-                    "kernel_size": 3,
+					"kernel_size": 3,
 					"activation": "tanh",
 				}
 			},
-            {
+			{
 				"layer_type": Flatten,
 				"layer_arguments": {
 
@@ -106,7 +163,7 @@ def get_hyper_opt_conf(train_shape: tuple) -> list:
 				"layer_type": Dense,
 				"layer_arguments": {
 					"units": 3,
-                    "activation": "softmax"
+					"activation": "softmax"
 				}
 			}
 		]

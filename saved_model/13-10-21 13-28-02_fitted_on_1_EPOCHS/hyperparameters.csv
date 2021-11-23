@@ -1,3 +1,0 @@
-,enabled_for_run,EPOCHS,model,optimizer,loss_function,layers
-0,True,1,<keras.engine.sequential.Sequential object at 0x000002D06E4552E0>,adam,mse,"{'layer_type': <class 'keras.layers.recurrent_v2.LSTM'>, 'layer_arguments': {'units': 50, 'activation': 'relu', 'input_shape': (40, 10)}}"
-1,True,1,<keras.engine.sequential.Sequential object at 0x000002D06E4552E0>,adam,mse,"{'layer_type': <class 'keras.layers.core.Dense'>, 'layer_arguments': {'units': 1, 'activation': 'softmax'}}"
