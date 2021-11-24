@@ -61,7 +61,12 @@ def compile_and_train_models(hyperopt_confs: dict,
             hist = pd.DataFrame.from_dict(history.history)
             hist.to_csv(path_or_buf="{}\\history.csv".format(save_folder))
             y_pred = model.predict(x=X_test, verbose=0)
-            df = get_pred_real_df(y_pred=y_pred, y_test=y_test)
+            df = pd.DataFrame(y_pred)
+            df = df.rename(columns={0:"1", 1:"2", 2:"3"})
+            df.to_csv(path_or_buf="{}\\softmax.csv".format(save_folder))
+            df = pd.DataFrame(columns=["predicted", "real"])
+            df["predicted"] = pd.Series(y_pred.argmax(axis=1))
+            df["real"] = pd.Series(y_test.argmax(axis=1))
             df.to_csv(path_or_buf="{}\\predictions.csv".format(save_folder))
             save_html_based_plots(df_pred_and_real=df,
                                   hist=hist,
