@@ -9,7 +9,7 @@ import scipy.io as spio
 from math import floor, ceil
 from data_management import get_model_data
 import pandas as pd
-
+import plotly.graph_objs as go
 
 def compile_and_train_models(hyperopt_confs: dict,
                              train_data: pd.DataFrame,
@@ -34,8 +34,6 @@ def compile_and_train_models(hyperopt_confs: dict,
                 reshaper_test.append(X_test.shape[i])
             X_train = X_train.reshape(reshaper_train)
             X_test = X_test.reshape(reshaper_test)
-
-            print("New model fitting started at: {}".format(dt.now().strftime("%H:%M:%S %d-%m-%y")))
             model = model_params["model"]
             for layer in model_params["layers"]: #Individual layer'
                 if list(layer.keys()).__contains__("layer_arguments"):
@@ -50,25 +48,80 @@ def compile_and_train_models(hyperopt_confs: dict,
                           loss=model_params["loss_function"],
                           metrics=['accuracy'])
             history = model.fit(x=X_train,
-                                y=y_train,
-                                epochs=model_params["EPOCHS"],
-                                verbose=1,
-                                shuffle=False,
-                                validation_data=(X_test, y_test))
+                      y=y_train,
+                      epochs=model_params["EPOCHS"],
+                      verbose=1,
+                      shuffle=False,
+                      validation_data=(X_test, y_test))
 
             save_folder = '{}\\{}_fitted_on_{}_EPOCHS'.format(Control_dict["models_save_folder"],
                                                               dt.now().strftime("%d-%m-%y %H-%M-%S"),
                                                               model_params["EPOCHS"])
             model.save(save_folder)
-            pd.DataFrame.from_dict(history.history).to_csv(path_or_buf="{}\\history.csv".format(save_folder))
-            #pd.DataFrame.from_dict(model_params).to_csv(path_or_buf="{}\\hyperparameters.csv".format(save_folder))
+            hist = pd.DataFrame.from_dict(history.history)
+            hist.to_csv(path_or_buf="{}\\history.csv".format(save_folder))
             y_pred = model.predict(x=X_test, verbose=0)
-            df = pd.DataFrame(columns=["predicted", "real"])
-            df["predicted"] = pd.Series(y_pred.argmax(axis=1))
-            df["real"] = pd.Series(y_test.argmax(axis=1))
+            df = get_pred_real_df(y_pred=y_pred, y_test=y_test)
             df.to_csv(path_or_buf="{}\\predictions.csv".format(save_folder))
+            save_html_based_plots(df_pred_and_real=df,
+                                  hist=hist,
+                                  save_folder=save_folder)
+            #pd.DataFrame.from_dict(model_params).to_csv(path_or_buf="{}\\hyperparameters.csv".format(save_folder))
+
+def get_pred_real_df(y_pred, y_test):
+    df = pd.DataFrame(columns=["predicted", "real"])
+    df["predicted"] = pd.Series(y_pred.argmax(axis=1))
+    df["real"] = pd.Series(y_test.argmax(axis=1))
+    return df
 
 
+def save_html_based_plots(df_pred_and_real, hist, save_folder):
+    make_and_save_epoch_dev_plot(hist=hist, save_folder=save_folder)
+    make_and_save_binned_pred_and_true(df_pred_and_real=df_pred_and_real)
+
+
+def make_and_save_epoch_dev_plot(hist, save_folder):
+    data = []
+    hist.index = hist.index + 1
+    data.append(
+        go.Scatter(
+            x=hist.index,
+            y=hist.accuracy,
+            name="Training Accuracy"
+        )
+    )
+    data.append(
+        go.Scatter(
+            x=hist.index,
+            y=hist.val_accuracy,
+            name="Validation Accuracy"
+        )
+    )
+    fig = go.Figure(
+        data=data
+    )
+    fig.update_layout(title='Accuracy over Epochs',
+                      xaxis_title='Epochs',
+                      yaxis_title='Accuracy')
+    fig.write_html("{}\\epoch_dev.html".format(save_folder))
+
+
+def make_and_save_binned_pred_and_true(df_pred_and_real):
+    data = []
+    data.append(
+        go.Bar(
+            x=hist.index,
+            y=hist.accuracy,
+            name="Training Accuracy"
+        )
+    )
+    fig = go.Figure(
+        data=data
+    )
+    fig.update_layout(title='Amount of correctly classified labels and what they are mapped to',
+                      xaxis_title='y_true',
+                      yaxis_title='No of samples in y_pred')
+    fig.write_html("{}\\epoch_dev.html".format(save_folder))
 
 def get_train_set(Control_dict) -> list:
     train_set = spio.loadmat("../deepFold_train", squeeze_me=True)

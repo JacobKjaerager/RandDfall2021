@@ -8,7 +8,7 @@ def get_hyper_opt_conf() -> list:
 	return [
 	{
 		"enabled_for_run": False,
-		"EPOCHS": 80,
+		"EPOCHS": 1,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
 		"target_numbers": 3,
@@ -43,8 +43,8 @@ def get_hyper_opt_conf() -> list:
 		]
 	},
 	{
-		"enabled_for_run": False,
-		"EPOCHS": 80,
+		"enabled_for_run": True,
+		"EPOCHS": 3,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
 		"target_numbers": 3,
@@ -71,7 +71,7 @@ def get_hyper_opt_conf() -> list:
 		]
 	},
 	{
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 1,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -85,11 +85,11 @@ def get_hyper_opt_conf() -> list:
 				"layer_type": ConvLSTM2D,
 				"layer_arguments": {
 					"filters": 64,
-					"kernel_size": [4, 4],
+					"kernel_size": [5, 5],
 					"padding": "same",
 					"return_sequences": True,
 					"activation": "tanh",
-					"input_shape": []
+					"input_shape": (100, 40, 1)
 				}
 			},
 			{
@@ -146,7 +146,7 @@ def get_hyper_opt_conf() -> list:
 					"filters": 80,
 					"kernel_size": 3,
 					"activation": "tanh",
-					"input_shape": ()
+					"input_shape": (100, 40, 1)
 				}
 			},
 			{
