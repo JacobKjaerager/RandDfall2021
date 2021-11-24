@@ -10,6 +10,7 @@ from math import floor, ceil
 from data_management import get_model_data
 import pandas as pd
 import plotly.graph_objs as go
+from map_to_object import map_2_obj
 
 def compile_and_train_models(hyperopt_confs: dict,
                              train_data: pd.DataFrame,
@@ -20,7 +21,6 @@ def compile_and_train_models(hyperopt_confs: dict,
             reshaper_train = []
             reshaper_test = []
             print("New model fitting started at: {}".format(dt.now().strftime("%H:%M:%S %d-%m-%y")))
-
             [X_train, y_train] = get_model_data(data=train_data,
                                                 sample_size=model_params["input_shape_sample"],
                                                 feature_num=model_params["input_shape_features"],
@@ -34,11 +34,11 @@ def compile_and_train_models(hyperopt_confs: dict,
                 reshaper_test.append(X_test.shape[i])
             X_train = X_train.reshape(reshaper_train)
             X_test = X_test.reshape(reshaper_test)
-            model = model_params["model"]
+            model = map_2_obj(model_params["model"])
             for layer in model_params["layers"]: #Individual layer'
                 if list(layer.keys()).__contains__("layer_arguments"):
                     model.add(
-                        layer=layer["layer_type"](**layer["layer_arguments"])
+                        layer=map_2_obj(layer["layer_type"])(**layer["layer_arguments"])
                     )
                 else:
                     model.add(
@@ -61,13 +61,15 @@ def compile_and_train_models(hyperopt_confs: dict,
             hist = pd.DataFrame.from_dict(history.history)
             hist.to_csv(path_or_buf="{}\\history.csv".format(save_folder))
             y_pred = model.predict(x=X_test, verbose=0)
-            df = pd.DataFrame(y_pred)
-            df = df.rename(columns={0:"1", 1:"2", 2:"3"})
-            df.to_csv(path_or_buf="{}\\softmax.csv".format(save_folder))
-            df = pd.DataFrame(columns=["predicted", "real"])
-            df["predicted"] = pd.Series(y_pred.argmax(axis=1))
-            df["real"] = pd.Series(y_test.argmax(axis=1))
-            df.to_csv(path_or_buf="{}\\predictions.csv".format(save_folder))
+
+            df_output = pd.DataFrame(y_pred)
+            df_output = df_output.rename(columns={0:"1", 1:"2", 2:"3"})
+            df_output.to_csv(path_or_buf="{}\\softmax.csv".format(save_folder))
+
+            df_pred_and_real = pd.DataFrame(columns=["predicted", "real"])
+            df_pred_and_real["predicted"] = pd.Series(y_pred.argmax(axis=1))
+            df_pred_and_real["real"] = pd.Series(y_test.argmax(axis=1))
+            df_pred_and_real.to_csv(path_or_buf="{}\\predictions.csv".format(save_folder))
             save_html_based_plots(df_pred_and_real=df,
                                   hist=hist,
                                   save_folder=save_folder)

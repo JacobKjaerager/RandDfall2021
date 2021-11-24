@@ -1,6 +1,7 @@
 from keras.models import Sequential
 from keras.layers import Dense, LSTM, Conv2D, Flatten, \
 	ConvLSTM2D, BatchNormalization, Conv3D, Reshape
+
 import numpy as np
 
 
@@ -13,12 +14,12 @@ def get_hyper_opt_conf() -> list:
 		"input_shape_features": 40,
 		"target_numbers": 3,
 		"data_dimensions": 3,
-		"model": Sequential(),
+		"model": "sequential",
 		"optimizer": "adam",
 		"loss_function": "mse",
 		"layers": [
 			{
-				"layer_type": LSTM,
+				"layer_type": "lstm",
 				"layer_arguments": {
 					"units": 50,
 					"activation": "tanh",
@@ -27,14 +28,14 @@ def get_hyper_opt_conf() -> list:
 				}
 			},
 			{
-				"layer_type": LSTM,
+				"layer_type": "lstm",
 				"layer_arguments": {
 					"units": 50,
 					"activation": "tanh"
 				},
 			},
 			{
-				"layer_type": Dense,
+				"layer_type": "dense",
 				"layer_arguments": {
 						"units": 3,
 						"activation": "softmax"
@@ -49,12 +50,12 @@ def get_hyper_opt_conf() -> list:
 		"input_shape_features": 40,
 		"target_numbers": 3,
 		"data_dimensions": 3,
-		"model": Sequential(),
+		"model": "sequential",
 		"optimizer": "adam",
 		"loss_function": "categorical_crossentropy",
 		"layers": [
 			{
-				"layer_type": LSTM,
+				"layer_type": "lstm",
 				"layer_arguments": {
 					"units": 50,
 					"activation": "tanh",
@@ -62,7 +63,7 @@ def get_hyper_opt_conf() -> list:
 				}
 			},
 			{
-				"layer_type": Dense,
+				"layer_type": "dense",
 				"layer_arguments": {
 						"units": 3,
 						"activation": "softmax"
@@ -77,12 +78,12 @@ def get_hyper_opt_conf() -> list:
 		"input_shape_features": 40,
 		"target_numbers": 3,
 		"data_dimensions": 4,
-		"model": Sequential(),
+		"model": "sequential",
 		"optimizer": "adam",
 		"loss_function": "categorical_crossentropy",
 		"layers": [
 			{
-				"layer_type": ConvLSTM2D,
+				"layer_type": "convlstm2d",
 				"layer_arguments": {
 					"filters": 64,
 					"kernel_size": [5, 5],
@@ -93,10 +94,10 @@ def get_hyper_opt_conf() -> list:
 				}
 			},
 			{
-				"layer_type": BatchNormalization
+				"layer_type": "batchnormalization"
 			},
 			{
-				"layer_type": ConvLSTM2D,
+				"layer_type": "convlstm2d",
 				"layer_arguments": {
 					"filters": 64,
 					"kernel_size": [3, 3],
@@ -106,10 +107,10 @@ def get_hyper_opt_conf() -> list:
 				}
 			},
 			{
-				"layer_type": BatchNormalization
+				"layer_type": "batchnormalization"
 			},
 			{
-				"layer_type": ConvLSTM2D,
+				"layer_type": "convlstm2d",
 				"layer_arguments": {
 					"filters": 64,
 					"kernel_size": [1, 1],
@@ -119,7 +120,7 @@ def get_hyper_opt_conf() -> list:
 				}
 			},
 			{
-				"layer_type": Conv3D,
+				"layer_type": "conv3d",
 				"layer_arguments": {
 					"filters": 1,
 					"kernel_size": [3, 3, 3],
@@ -136,12 +137,12 @@ def get_hyper_opt_conf() -> list:
 		"input_shape_features": 40,
 		"target_numbers": 3,
 		"data_dimensions": 4,
-		"model": Sequential(),
+		"model": "sequential",
 		"optimizer": "adam",
 		"loss_function": "categorical_crossentropy",
 		"layers": [
 			{
-				"layer_type": Conv2D,
+				"layer_type": "conv2d",
 				"layer_arguments": {
 					"filters": 80,
 					"kernel_size": 3,
@@ -150,7 +151,7 @@ def get_hyper_opt_conf() -> list:
 				}
 			},
 			{
-				"layer_type": Conv2D,
+				"layer_type": "conv2d",
 				"layer_arguments": {
 					"filters": 40,
 					"kernel_size": 3,
@@ -158,13 +159,13 @@ def get_hyper_opt_conf() -> list:
 				}
 			},
 			{
-				"layer_type": Flatten,
+				"layer_type": "flatten",
 				"layer_arguments": {
 
 				}
 			},
 			{
-				"layer_type": Dense,
+				"layer_type": "dense",
 				"layer_arguments": {
 					"units": 3,
 					"activation": "softmax"
