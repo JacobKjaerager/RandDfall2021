@@ -7,6 +7,7 @@ Created on Mon Oct 18 09:36:05 2021
 
 import numpy as np
 import pandas as pd
+from tensorflow.keras.utils import to_categorical
 
 # read data for training and test:
 # 1. base_path: path to the dataset
@@ -85,4 +86,6 @@ def get_model_data(data, sample_size=100, feature_num=40, target_num=5):
     # labels 3: smaller or equal to -0.002
     # Y=Y-1 relabels as 0,1,2
     Y = Y-1
+    Y = Y[:,4]
+    Y = to_categorical(Y, 3)
     return X,Y
