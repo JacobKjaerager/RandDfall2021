@@ -8,93 +8,9 @@ def get_hyper_opt_conf() -> list:
 	return [
 	{
 		"enabled_for_run": False,
-		"EPOCHS": 1,
-		"input_shape": (100, 40),
-		"target_numbers": 3,
-		"data_dimensions": 3,
-		"model": Sequential(),
-		"optimizer": "adam",
-		"loss_function": "categorical_crossentropy",
-		"layers": [
-			{
-				"layer_type": LSTM,
-				"layer_arguments": {
-					"units": 50,
-					"activation": "tanh",
-					"input_shape": (100, 40)
-				}
-			},
-			{
-				"layer_type": Dense,
-				"layer_arguments": {
-						"units": 3,
-						"activation": "softmax"
-				}
-			}
-		]
-	},
-	{
-		"enabled_for_run": False,
-		"EPOCHS": 1,
-		"input_shape": (100, 40),
-		"target_numbers": 3,
-		"data_dimensions": 4,
-		"model": Sequential(),
-		"optimizer": "adam",
-		"loss_function": "categorical_crossentropy",
-		"layers": [
-			{
-				"layer_type": ConvLSTM2D,
-				"layer_arguments": {
-					"filters": 64,
-					"kernel_size": (5, 5),
-					"padding": "same",
-					"return_sequences": True,
-					"activation": "tanh",
-					"input_shape": (),
-				}
-			},
-			{
-				"layer_type": BatchNormalization
-			},
-			{
-				"layer_type": ConvLSTM2D,
-				"layer_arguments": {
-					"filters": 64,
-					"kernel_size": (3, 3),
-					"padding": "same",
-					"return_sequences": True,
-					"activation": "tanh",
-				}
-			},
-			{
-				"layer_type": BatchNormalization
-			},
-			{
-				"layer_type": ConvLSTM2D,
-				"layer_arguments": {
-					"filters": 64,
-					"kernel_size": (1, 1),
-					"padding": "same",
-					"return_sequences": True,
-					"activation": "tanh",
-				}
-			},
-			{
-				"layer_type": Conv3D,
-				"layer_arguments": {
-					"filters": 1,
-					"kernel_size": (3, 3, 3),
-					"padding": "same",
-					"activation": "sigmoid",
-				}
-			},
-		]
-	},
-	{
-		"enabled_for_run": True,
-		"EPOCHS": 1,
-		"input_shape": (100, 40),
+		"EPOCHS": 80,
+		"input_shape_sample": 100,
+		"input_shape_features": 40,
 		"target_numbers": 3,
 		"data_dimensions": 3,
 		"model": Sequential(),
@@ -128,8 +44,96 @@ def get_hyper_opt_conf() -> list:
 	},
 	{
 		"enabled_for_run": False,
+		"EPOCHS": 80,
+		"input_shape_sample": 100,
+		"input_shape_features": 40,
+		"target_numbers": 3,
+		"data_dimensions": 3,
+		"model": Sequential(),
+		"optimizer": "adam",
+		"loss_function": "categorical_crossentropy",
+		"layers": [
+			{
+				"layer_type": LSTM,
+				"layer_arguments": {
+					"units": 50,
+					"activation": "tanh",
+					"input_shape": (100, 40)
+				}
+			},
+			{
+				"layer_type": Dense,
+				"layer_arguments": {
+						"units": 3,
+						"activation": "softmax"
+				}
+			}
+		]
+	},
+	{
+		"enabled_for_run": True,
 		"EPOCHS": 1,
-		"input_shape": (100, 40),
+		"input_shape_sample": 100,
+		"input_shape_features": 40,
+		"target_numbers": 3,
+		"data_dimensions": 4,
+		"model": Sequential(),
+		"optimizer": "adam",
+		"loss_function": "categorical_crossentropy",
+		"layers": [
+			{
+				"layer_type": ConvLSTM2D,
+				"layer_arguments": {
+					"filters": 64,
+					"kernel_size": [4, 4],
+					"padding": "same",
+					"return_sequences": True,
+					"activation": "tanh",
+					"input_shape": []
+				}
+			},
+			{
+				"layer_type": BatchNormalization
+			},
+			{
+				"layer_type": ConvLSTM2D,
+				"layer_arguments": {
+					"filters": 64,
+					"kernel_size": [3, 3],
+					"padding": "same",
+					"return_sequences": True,
+					"activation": "tanh"
+				}
+			},
+			{
+				"layer_type": BatchNormalization
+			},
+			{
+				"layer_type": ConvLSTM2D,
+				"layer_arguments": {
+					"filters": 64,
+					"kernel_size": [1, 1],
+					"padding": "same",
+					"return_sequences": True,
+					"activation": "tanh"
+				}
+			},
+			{
+				"layer_type": Conv3D,
+				"layer_arguments": {
+					"filters": 1,
+					"kernel_size": [3, 3, 3],
+					"padding": "same",
+					"activation": "sigmoid"
+				}
+			}
+		]
+	},
+	{
+		"enabled_for_run": False,
+		"EPOCHS": 1,
+		"input_shape_sample": 100,
+		"input_shape_features": 40,
 		"target_numbers": 3,
 		"data_dimensions": 4,
 		"model": Sequential(),
@@ -150,7 +154,7 @@ def get_hyper_opt_conf() -> list:
 				"layer_arguments": {
 					"filters": 40,
 					"kernel_size": 3,
-					"activation": "tanh",
+					"activation": "tanh"
 				}
 			},
 			{

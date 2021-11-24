@@ -38,8 +38,6 @@ if __name__ == '__main__':
                              train_data=train_data,
                              test_data=test_data,
                              Control_dict=Control_dict)
-
-
     # train_set = spio.loadmat("../deepFold_train", squeeze_me=True)
     # test_set = spio.loadmat("../deepFold_test", squeeze_me=True)
     # X_train = train_set["x_train"][:ceil(Control_dict["cross_validation_size"]* len(train_set["x_train"]))]

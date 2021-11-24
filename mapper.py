@@ -16,23 +16,25 @@ def compile_and_train_models(hyperopt_confs: dict,
                              test_data: pd.DataFrame,
                              Control_dict: dict) -> None:
     for model_params in hyperopt_confs: #Individual model
-        reshaper_train = []
-        reshaper_test = []
-        [X_train, y_train] = get_model_data(data=train_data,
-                                            sample_size=model_params["input_shape"][0],
-                                            feature_num=model_params["input_shape"][1],
-                                            target_num=model_params["target_numbers"])
-        [X_test, y_test] = get_model_data(data=test_data,
-                                          sample_size=model_params["input_shape"][0],
-                                          feature_num=model_params["input_shape"][1],
-                                          target_num=model_params["target_numbers"])
-        for i in range(model_params["data_dimensions"]):
-            reshaper_train.append(X_train.shape[i])
-            reshaper_test.append(X_test.shape[i])
-        X_train = X_train.reshape(reshaper_train)
-        X_test = X_test.reshape(reshaper_test)
-
         if model_params["enabled_for_run"]:
+            reshaper_train = []
+            reshaper_test = []
+            print("New model fitting started at: {}".format(dt.now().strftime("%H:%M:%S %d-%m-%y")))
+
+            [X_train, y_train] = get_model_data(data=train_data,
+                                                sample_size=model_params["input_shape_sample"],
+                                                feature_num=model_params["input_shape_features"],
+                                                target_num=model_params["target_numbers"])
+            [X_test, y_test] = get_model_data(data=test_data,
+                                              sample_size=model_params["input_shape_sample"],
+                                              feature_num=model_params["input_shape_features"],
+                                              target_num=model_params["target_numbers"])
+            for i in range(model_params["data_dimensions"]):
+                reshaper_train.append(X_train.shape[i])
+                reshaper_test.append(X_test.shape[i])
+            X_train = X_train.reshape(reshaper_train)
+            X_test = X_test.reshape(reshaper_test)
+
             print("New model fitting started at: {}".format(dt.now().strftime("%H:%M:%S %d-%m-%y")))
             model = model_params["model"]
             for layer in model_params["layers"]: #Individual layer'
@@ -59,13 +61,12 @@ def compile_and_train_models(hyperopt_confs: dict,
                                                               model_params["EPOCHS"])
             model.save(save_folder)
             pd.DataFrame.from_dict(history.history).to_csv(path_or_buf="{}\\history.csv".format(save_folder))
-            pd.DataFrame.from_dict(model_params).to_csv(path_or_buf="{}\\hyperparameters.csv".format(save_folder))
+            #pd.DataFrame.from_dict(model_params).to_csv(path_or_buf="{}\\hyperparameters.csv".format(save_folder))
             y_pred = model.predict(x=X_test, verbose=0)
             df = pd.DataFrame(columns=["predicted", "real"])
             df["predicted"] = pd.Series(y_pred.argmax(axis=1))
             df["real"] = pd.Series(y_test.argmax(axis=1))
             df.to_csv(path_or_buf="{}\\predictions.csv".format(save_folder))
-
 
 
 
