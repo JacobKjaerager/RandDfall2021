@@ -23,12 +23,10 @@ def compile_and_train_models(hyperopt_confs: dict,
             print("New model fitting started at: {}".format(dt.now().strftime("%H:%M:%S %d-%m-%y")))
             [X_train, y_train] = get_model_data(data=train_data,
                                                 sample_size=model_params["input_shape_sample"],
-                                                feature_num=model_params["input_shape_features"],
-                                                target_num=model_params["target_numbers"])
+                                                feature_num=model_params["input_shape_features"])
             [X_test, y_test] = get_model_data(data=test_data,
                                               sample_size=model_params["input_shape_sample"],
-                                              feature_num=model_params["input_shape_features"],
-                                              target_num=model_params["target_numbers"])
+                                              feature_num=model_params["input_shape_features"])
             for i in range(model_params["data_dimensions"]):
                 reshaper_train.append(X_train.shape[i])
                 reshaper_test.append(X_test.shape[i])
@@ -70,13 +68,12 @@ def compile_and_train_models(hyperopt_confs: dict,
             df_pred_and_real["predicted"] = pd.Series(y_pred.argmax(axis=1))
             df_pred_and_real["real"] = pd.Series(y_test.argmax(axis=1))
             df_pred_and_real.to_csv(path_or_buf="{}\\predictions.csv".format(save_folder))
+            pd.DataFrame.from_dict(model_params).to_csv(path_or_buf="{}\\hyperparameters.csv".format(save_folder))
             save_html_based_plots(df_pred_and_real=df,
                                   hist=hist,
                                   save_folder=save_folder)
-            #pd.DataFrame.from_dict(model_params).to_csv(path_or_buf="{}\\hyperparameters.csv".format(save_folder))
 
-def get_pred_real_df(y_pred, y_test):
-    df = pd.DataFrame(columns=["predicted", "real"])
+
     df["predicted"] = pd.Series(y_pred.argmax(axis=1))
     df["real"] = pd.Series(y_test.argmax(axis=1))
     return df
@@ -84,7 +81,7 @@ def get_pred_real_df(y_pred, y_test):
 
 def save_html_based_plots(df_pred_and_real, hist, save_folder):
     make_and_save_epoch_dev_plot(hist=hist, save_folder=save_folder)
-    make_and_save_binned_pred_and_true(df_pred_and_real=df_pred_and_real)
+    make_and_save_binned_pred_and_true(df_pred_and_real=df_pred_and_real, save_folder=save_folder)
 
 
 def make_and_save_epoch_dev_plot(hist, save_folder):
@@ -113,22 +110,47 @@ def make_and_save_epoch_dev_plot(hist, save_folder):
     fig.write_html("{}\\epoch_dev.html".format(save_folder))
 
 
-def make_and_save_binned_pred_and_true(df_pred_and_real):
-    data = []
-    data.append(
+def get_groups(df: pd.DataFrame) -> list:
+    real_groups = df.groupby("real")
+    t1 = real_groups.get_group(0).groupby("predicted").count()
+    t2 = real_groups.get_group(1).groupby("predicted").count()
+    t3 = real_groups.get_group(2).groupby("predicted").count()
+    first_data_bar = [t1.real.loc[0], t2.real.loc[0], t3.real.loc[0]]
+    second_data_bar = [t1.real.loc[1], t2.real.loc[1], t3.real.loc[1]]
+    third_data_bar = [t1.real.loc[2], t2.real.loc[2], t3.real.loc[2]]
+    return [first_data_bar, second_data_bar, third_data_bar]
+
+
+def make_and_save_binned_pred_and_true(df_pred_and_real, save_folder):
+    [correct_label0, correct_label1, correct_label2] = get_groups(df_pred_and_real)
+    x = [1,2,3]
+    data = [
         go.Bar(
-            x=hist.index,
-            y=hist.accuracy,
-            name="Training Accuracy"
-        )
-    )
+            x=x,
+            y=correct_label0,
+            name="Classified label 0"
+        ),
+        go.Bar(
+            x=x,
+            y=correct_label1,
+            name="Classified label 1"
+        ),
+        go.Bar(
+            x=x,
+            y=correct_label2,
+            name="Classified label 2"
+        ),
+    ]
     fig = go.Figure(
         data=data
     )
-    fig.update_layout(title='Amount of correctly classified labels and what they are mapped to',
-                      xaxis_title='y_true',
-                      yaxis_title='No of samples in y_pred')
-    fig.write_html("{}\\epoch_dev.html".format(save_folder))
+    fig.update_layout(
+        barmode='group',
+        title='Amount of correctly classified labels and what they are mapped to',
+        xaxis_title='y_real',
+        yaxis_title='No of samples in y_pred')
+    fig.write_html("{}\\predict_vs_real.html".format(save_folder))
+
 
 def get_train_set(Control_dict) -> list:
     train_set = spio.loadmat("../deepFold_train", squeeze_me=True)
