@@ -9,7 +9,7 @@ def get_hyper_opt_conf() -> list:
 	return [
 	{
 		"enabled_for_run": False,
-		"EPOCHS": 1,
+		"EPOCHS": 80,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
 		"data_dimensions": 3,
@@ -44,7 +44,7 @@ def get_hyper_opt_conf() -> list:
 	},
 	{
 		"enabled_for_run": True,
-		"EPOCHS": 1,
+		"EPOCHS": 80,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
 		"data_dimensions": 3,
@@ -128,8 +128,8 @@ def get_hyper_opt_conf() -> list:
 		]
 	},
 	{
-		"enabled_for_run": False,
-		"EPOCHS": 1,
+		"enabled_for_run": True,
+		"EPOCHS": 10,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
 		"data_dimensions": 4,
@@ -169,6 +169,7 @@ def get_hyper_opt_conf() -> list:
 			}
 		]
 	}
+   
 ]
 
 

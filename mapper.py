@@ -69,14 +69,9 @@ def compile_and_train_models(hyperopt_confs: dict,
             df_pred_and_real["real"] = pd.Series(y_test.argmax(axis=1))
             df_pred_and_real.to_csv(path_or_buf="{}\\predictions.csv".format(save_folder))
             pd.DataFrame.from_dict(model_params).to_csv(path_or_buf="{}\\hyperparameters.csv".format(save_folder))
-            save_html_based_plots(df_pred_and_real=df,
+            save_html_based_plots(df_pred_and_real=df_pred_and_real,
                                   hist=hist,
                                   save_folder=save_folder)
-
-
-    df["predicted"] = pd.Series(y_pred.argmax(axis=1))
-    df["real"] = pd.Series(y_test.argmax(axis=1))
-    return df
 
 
 def save_html_based_plots(df_pred_and_real, hist, save_folder):

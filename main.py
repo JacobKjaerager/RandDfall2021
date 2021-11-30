@@ -18,8 +18,15 @@ from mapper import *
 import time
 import plotly.graph_objs as go
 
-if __name__ == '__main__':
+def manually_add_graphics(model_path):
+    save_folder = model_path #"./saved_model//25-11-21 10-49-40_fitted_on_80_EPOCHS"
+    df_pred_and_real = pd.read_csv("{}/predictions.csv".format(save_folder))
+    hist = pd.read_csv("{}/history.csv".format(save_folder))
+    save_html_based_plots(df_pred_and_real=df_pred_and_real,
+                          hist=hist,
+                          save_folder=save_folder)
 
+if __name__ == '__main__':
 
     # start_webserver()
     # [train_data, test_data] = read_data(base_path="../BenchmarkDatasets/",
