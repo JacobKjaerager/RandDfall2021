@@ -70,23 +70,23 @@ def compile_and_train_models(hyperopt_confs: dict,
                       shuffle=False,
                       validation_data=(X_test, y_test))
 
-            save_folder = '{}\\{}_fitted_on_{}_EPOCHS'.format(Control_dict["models_save_folder"],
+            save_folder = '{}\\{}_fitted_on_{}_EPOCHS\\'.format(Control_dict["models_save_folder"],
                                                               dt.now().strftime("%d-%m-%y %H-%M-%S"),
                                                               model_params["EPOCHS"])
             model.save(save_folder)
             hist = pd.DataFrame.from_dict(history.history)
-            hist.to_csv(path_or_buf="{}\\history.csv".format(save_folder))
+            hist.to_csv(path_or_buf="{}history.csv".format(save_folder))
             y_pred = model.predict(x=X_test, verbose=0)
 
             df_output = pd.DataFrame(y_pred)
             df_output = df_output.rename(columns={0:"1", 1:"2", 2:"3"})
-            df_output.to_csv(path_or_buf="{}\\softmax.csv".format(save_folder))
+            df_output.to_csv(path_or_buf="{}softmax.csv".format(save_folder))
 
             df_pred_and_real = pd.DataFrame(columns=["predicted", "real"])
             df_pred_and_real["predicted"] = pd.Series(y_pred.argmax(axis=1))
             df_pred_and_real["real"] = pd.Series(y_test.argmax(axis=1))
-            df_pred_and_real.to_csv(path_or_buf="{}\\predictions.csv".format(save_folder))
-            pd.DataFrame.from_dict(model_params).to_csv(path_or_buf="{}\\hyperparameters.csv".format(save_folder))
+            df_pred_and_real.to_csv(path_or_buf="{}predictions.csv".format(save_folder))
+            pd.DataFrame.from_dict(model_params).to_csv(path_or_buf="{}hyperparameters.csv".format(save_folder))
             save_html_based_plots(df_pred_and_real=df_pred_and_real,
                                   hist=hist,
                                   save_folder=save_folder)
@@ -120,7 +120,7 @@ def make_and_save_epoch_dev_plot(hist, save_folder):
     fig.update_layout(title='Accuracy over Epochs',
                       xaxis_title='Epochs',
                       yaxis_title='Accuracy')
-    fig.write_html("{}\\epoch_dev.html".format(save_folder))
+    fig.write_html("{}epoch_dev.html".format(save_folder))
 
 
 def get_groups(df: pd.DataFrame) -> list:
@@ -162,7 +162,7 @@ def make_and_save_binned_pred_and_true(df_pred_and_real, save_folder):
         title='Amount of correctly classified labels and what they are mapped to',
         xaxis_title='y_real',
         yaxis_title='No of samples in y_pred')
-    fig.write_html("{}\\predict_vs_real.html".format(save_folder))
+    fig.write_html("{}predict_vs_real.html".format(save_folder))
 
 
 def get_train_set(Control_dict) -> list:
