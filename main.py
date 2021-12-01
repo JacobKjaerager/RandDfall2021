@@ -24,7 +24,7 @@ def manually_add_graphics(model_path):
     save_html_based_plots(df_pred_and_real=df_pred_and_real,
                           hist=hist,
                           save_folder=save_folder)
-    
+
 def static_train_test_data():
     [train_data, test_data] = read_data(base_path="../BenchmarkDatasets/",
                                         auction=False,
@@ -35,9 +35,9 @@ def static_train_test_data():
 
 
 if __name__ == '__main__':
-    [train_data, test_data] = static_train_test_data()
+#    [train_data, test_data] = static_train_test_data()
 
-    print("wae")
+ #   print("wae")
     # start_webserver()
     # [train_data, test_data] = read_data(base_path="../BenchmarkDatasets/",
     #                                     auction=False,

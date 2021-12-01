@@ -70,27 +70,29 @@ def compile_and_train_models(hyperopt_confs: dict,
                       shuffle=False,
                       validation_data=(X_test, y_test))
 
-            save_folder = '{}\\{}_fitted_on_{}_EPOCHS\\'.format(Control_dict["models_save_folder"],
-                                                              dt.now().strftime("%d-%m-%y %H-%M-%S"),
-                                                              model_params["EPOCHS"])
+            save_folder = '{}/{}_fitted_on_{}_EPOCHS/'.format(Control_dict["models_save_folder"],
+                                                                dt.now().strftime("%d-%m-%y-%H-%M-%S"),
+                                                                model_params["EPOCHS"])
             model.save(save_folder)
             hist = pd.DataFrame.from_dict(history.history)
             hist.to_csv(path_or_buf="{}history.csv".format(save_folder))
-            y_pred = model.predict(x=X_test, verbose=0)
-
-            df_output = pd.DataFrame(y_pred)
-            df_output = df_output.rename(columns={0:"1", 1:"2", 2:"3"})
-            df_output.to_csv(path_or_buf="{}softmax.csv".format(save_folder))
-
-            df_pred_and_real = pd.DataFrame(columns=["predicted", "real"])
-            df_pred_and_real["predicted"] = pd.Series(y_pred.argmax(axis=1))
-            df_pred_and_real["real"] = pd.Series(y_test.argmax(axis=1))
-            df_pred_and_real.to_csv(path_or_buf="{}predictions.csv".format(save_folder))
             pd.DataFrame.from_dict(model_params).to_csv(path_or_buf="{}hyperparameters.csv".format(save_folder))
-            save_html_based_plots(df_pred_and_real=df_pred_and_real,
-                                  hist=hist,
-                                  save_folder=save_folder)
+            #save_and_predict(model, X_test, save_folder, hist, y_test)
 
+
+def save_and_predict(model, X_test, save_folder, hist, y_test):
+    y_pred = model.predict(x=X_test, verbose=0)
+    df_output = pd.DataFrame(y_pred)
+    df_output = df_output.rename(columns={0:"1", 1:"2", 2:"3"})
+    df_output.to_csv(path_or_buf="{}softmax.csv".format(save_folder))
+
+    df_pred_and_real = pd.DataFrame(columns=["predicted", "real"])
+    df_pred_and_real["predicted"] = pd.Series(y_pred.argmax(axis=1))
+    df_pred_and_real["real"] = pd.Series(y_test.argmax(axis=1))
+    df_pred_and_real.to_csv(path_or_buf="{}predictions.csv".format(save_folder))
+    save_html_based_plots(df_pred_and_real=df_pred_and_real,
+                          hist=hist,
+                          save_folder=save_folder)
 
 def save_html_based_plots(df_pred_and_real, hist, save_folder):
     make_and_save_epoch_dev_plot(hist=hist, save_folder=save_folder)
@@ -125,9 +127,13 @@ def make_and_save_epoch_dev_plot(hist, save_folder):
 
 def get_groups(df: pd.DataFrame) -> list:
     real_groups = df.groupby("real")
+    print(df.shape)
     t1 = real_groups.get_group(0).groupby("predicted").count()
     t2 = real_groups.get_group(1).groupby("predicted").count()
     t3 = real_groups.get_group(2).groupby("predicted").count()
+   # print("t1 is of the size: {}".format(t1.shape))
+    #print("t2 is of the size: {}".format(t2.shape))
+   # print("t3 is of the size: {}".format(t3.shape))
     first_data_bar = [t1.real.loc[0], t2.real.loc[0], t3.real.loc[0]]
     second_data_bar = [t1.real.loc[1], t2.real.loc[1], t3.real.loc[1]]
     third_data_bar = [t1.real.loc[2], t2.real.loc[2], t3.real.loc[2]]

@@ -1,0 +1,2 @@
+,enabled_for_run,EPOCHS,input_shape_sample,input_shape_features,data_dimensions,model,optimizer,loss_function,dropout,hidden_layer_1_shape_1,hidden_layer_1_shape_2,hidden_layer_2_shape_1,hidden_layer_2_shape_2
+0,True,1,100,40,3,tabl,adam,categorical_crossentropy,0.1,60,10,120,5

@@ -1,14 +1,11 @@
 from keras.models import Sequential
-from keras.layers import Dense, LSTM, Conv2D, Flatten, \
-	ConvLSTM2D, BatchNormalization, Conv3D, Reshape
-
 import numpy as np
 
 
 def get_hyper_opt_conf() -> list:
 	return [
     	{
-		"enabled_for_run": False,
+		"enabled_for_run": True,
 		"EPOCHS": 1,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -22,7 +19,7 @@ def get_hyper_opt_conf() -> list:
         "leaky_relu_alpha": 0.01
 	},
     {
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 1,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -37,7 +34,7 @@ def get_hyper_opt_conf() -> list:
         "hidden_layer_2_shape_2": 5
 	},
 	{
-		"enabled_for_run": False,
+		"enabled_for_run": True,
 		"EPOCHS": 1,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -72,8 +69,8 @@ def get_hyper_opt_conf() -> list:
 		]
 	},
 	{
-		"enabled_for_run": False,
-		"EPOCHS": 1,
+		"enabled_for_run": True,
+		"EPOCHS": 2,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
 		"data_dimensions": 3,
@@ -99,66 +96,8 @@ def get_hyper_opt_conf() -> list:
 		]
 	},
 	{
-		"enabled_for_run": False,
+		"enabled_for_run": True,
 		"EPOCHS": 1,
-		"input_shape_sample": 100,
-		"input_shape_features": 40,
-		"data_dimensions": 4,
-		"model": "sequential",
-		"optimizer": "adam",
-		"loss_function": "categorical_crossentropy",
-		"layers": [
-			{
-				"layer_type": "convlstm2d",
-				"layer_arguments": {
-					"filters": 64,
-					"kernel_size": [5, 5],
-					"padding": "same",
-					"return_sequences": True,
-					"activation": "tanh",
-					"input_shape": (100, 40, 1)
-				}
-			},
-			{
-				"layer_type": "batchnormalization"
-			},
-			{
-				"layer_type": "convlstm2d",
-				"layer_arguments": {
-					"filters": 64,
-					"kernel_size": [3, 3],
-					"padding": "same",
-					"return_sequences": True,
-					"activation": "tanh"
-				}
-			},
-			{
-				"layer_type": "batchnormalization"
-			},
-			{
-				"layer_type": "convlstm2d",
-				"layer_arguments": {
-					"filters": 64,
-					"kernel_size": [1, 1],
-					"padding": "same",
-					"return_sequences": True,
-					"activation": "tanh"
-				}
-			},
-			{
-				"layer_type": "conv3d",
-				"layer_arguments": {
-					"filters": 1,
-					"kernel_size": [3, 3, 3],
-					"padding": "same",
-					"activation": "sigmoid"
-				}
-			}
-		]
-	},
-	{
-		"enabled_for_run": False,
-		"EPOCHS": 10,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
 		"data_dimensions": 4,
@@ -198,7 +137,6 @@ def get_hyper_opt_conf() -> list:
 			}
 		]
 	}
-   
 ]
 
 
