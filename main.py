@@ -3,7 +3,6 @@ import scipy.io as spio
 import numpy as np
 from keras.utils import np_utils
 from math import floor, ceil
-
 from hyperopt_models import get_hyper_opt_conf
 from mapper import compile_and_train_models
 from control_file import Control_dict
@@ -25,9 +24,20 @@ def manually_add_graphics(model_path):
     save_html_based_plots(df_pred_and_real=df_pred_and_real,
                           hist=hist,
                           save_folder=save_folder)
+    
+def static_train_test_data():
+    [train_data, test_data] = read_data(base_path="../BenchmarkDatasets/",
+                                        auction=False,
+                                        normalization="Zscore",
+                                        fold=7,
+                                        combine_test=True)
+    return [train_data, test_data]
+
 
 if __name__ == '__main__':
+    [train_data, test_data] = static_train_test_data()
 
+    print("wae")
     # start_webserver()
     # [train_data, test_data] = read_data(base_path="../BenchmarkDatasets/",
     #                                     auction=False,
@@ -36,8 +46,8 @@ if __name__ == '__main__':
     #                                     combine_test=True)
 
     start = time.time()
-    train_data = pd.read_pickle("../pickle_files/training_data.pkl")
-    test_data = pd.read_pickle("../pickle_files/test_data.pkl")
+    train_data = pd.read_csv("../pickle_files/training_data.csv")
+    test_data = pd.read_csv("../pickle_files/test_data.csv")
     end1 = time.time()
     hyper_opt_models = get_hyper_opt_conf()
     # X_train = X_train.reshape(len(X_train), 10, 40, 1)
