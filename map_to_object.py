@@ -4,8 +4,9 @@ from keras.layers import Dense, LSTM, Conv2D, Flatten, \
 from Models import DeepLOB, TABL
 
 
-def map_2_obj(model_name: str):
-
+def map_2_obj(model_name: any):
+    if type(model_name) == list:
+        model_name = model_name[0]
     model = {
         "lstm": LSTM,
         "dense": Dense,
