@@ -40,7 +40,7 @@ def BL(template, dropout=0.1, regularizer=None, constraint=None):
     
     return model
 
-def TABL(template, dropout=0.1, projection_regularizer=None, projection_constraint=None,
+def TABL(template=[[100,40], [60,10], [120,5], [3,1]], dropout=0.1, projection_regularizer=None, projection_constraint=None,
          attention_regularizer=None, attention_constraint=None):
     """
     Temporal Attention augmented Bilinear Layer network, refer to the paper https://arxiv.org/abs/1712.00975

@@ -8,7 +8,8 @@ import tensorflow as tf
 import scipy.io as spio
 from math import floor, ceil
 from data_management import get_model_data
-import pandas as pd
+from Models import DeepLOB, TABL
+import keras
 import plotly.graph_objs as go
 from map_to_object import map_2_obj
 
@@ -33,15 +34,32 @@ def compile_and_train_models(hyperopt_confs: dict,
             X_train = X_train.reshape(reshaper_train)
             X_test = X_test.reshape(reshaper_test)
             model = map_2_obj(model_params["model"])
-            for layer in model_params["layers"]: #Individual layer'
-                if list(layer.keys()).__contains__("layer_arguments"):
-                    model.add(
-                        layer=map_2_obj(layer["layer_type"])(**layer["layer_arguments"])
-                    )
-                else:
-                    model.add(
-                        layer=layer["layer_type"]()
-                    )
+            if model_params["model"] == "deeplob":
+                model = DeepLOB(lookback_timestep=model_params["input_shape_sample"], feature_num=model_params["input_shape_features"],
+                                conv_filter_num=model_params["conv_filter_num"], inception_num=model_params["inception_num"],
+                                LSTM_num=model_params["lstm_num"], leaky_relu_alpha=model_params["leaky_relu_alpha"])
+            elif model_params["model"] == "tabl":
+                projection_regularizer = None
+                projection_constraint = keras.constraints.max_norm(3.0,axis=0)
+                attention_regularizer = None
+                attention_constraint = keras.constraints.max_norm(5.0, axis=1)
+                template = [[model_params["input_shape_sample"],model_params["input_shape_features"]],
+                            [model_params["hidden_layer_1_shape_1"],model_params["hidden_layer_1_shape_2"]],
+                            [model_params["hidden_layer_2_shape_1"],model_params["hidden_layer_2_shape_2"]],
+                            [3,1]]
+                dropout = model_params["dropout"]
+                model = TABL(template, dropout, projection_regularizer, projection_constraint,
+                             attention_regularizer, attention_constraint)
+            else:
+                for layer in model_params["layers"]: #Individual layer'
+                    if list(layer.keys()).__contains__("layer_arguments"):
+                        model.add(
+                            layer=map_2_obj(layer["layer_type"])(**layer["layer_arguments"])
+                        )
+                    else:
+                        model.add(
+                            layer=layer["layer_type"]()
+                        )
             model.compile(optimizer=model_params["optimizer"],
                           loss=model_params["loss_function"],
                           metrics=['accuracy'])
