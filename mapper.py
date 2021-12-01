@@ -34,11 +34,11 @@ def compile_and_train_models(hyperopt_confs: dict,
             X_train = X_train.reshape(reshaper_train)
             X_test = X_test.reshape(reshaper_test)
             model = map_2_obj(model_params["model"])
-            if model_params["model"] == "deeplob":
+            if model_params["model"] == ["deeplob"]:
                 model = DeepLOB(lookback_timestep=model_params["input_shape_sample"], feature_num=model_params["input_shape_features"],
                                 conv_filter_num=model_params["conv_filter_num"], inception_num=model_params["inception_num"],
                                 LSTM_num=model_params["lstm_num"], leaky_relu_alpha=model_params["leaky_relu_alpha"])
-            elif model_params["model"] == "tabl":
+            elif model_params["model"] == ["tabl"]:
                 projection_regularizer = None
                 projection_constraint = keras.constraints.max_norm(3.0,axis=0)
                 attention_regularizer = None

@@ -13,7 +13,7 @@ def get_hyper_opt_conf() -> list:
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
 		"data_dimensions": 3,
-		"model": "deeplob",
+		"model": ["deeplob"],
 		"optimizer": "adam",
 		"loss_function": "categorical_crossentropy",
         "conv_filter_num": 16,
@@ -27,7 +27,7 @@ def get_hyper_opt_conf() -> list:
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
 		"data_dimensions": 3,
-		"model": "tabl",
+		"model": ["tabl"],
 		"optimizer": "adam",
 		"loss_function": "categorical_crossentropy",
         "dropout": 0.1,
@@ -37,7 +37,7 @@ def get_hyper_opt_conf() -> list:
         "hidden_layer_2_shape_2": 5
 	},
 	{
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 1,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -73,7 +73,7 @@ def get_hyper_opt_conf() -> list:
 	},
 	{
 		"enabled_for_run": False,
-		"EPOCHS": 80,
+		"EPOCHS": 1,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
 		"data_dimensions": 3,
