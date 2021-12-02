@@ -77,7 +77,7 @@ def compile_and_train_models(hyperopt_confs: dict,
             hist = pd.DataFrame.from_dict(history.history)
             hist.to_csv(path_or_buf="{}history.csv".format(save_folder))
             pd.DataFrame.from_dict(model_params).to_csv(path_or_buf="{}hyperparameters.csv".format(save_folder))
-            #save_and_predict(model, X_test, save_folder, hist, y_test)
+            save_and_predict(model, X_test, save_folder, hist, y_test)
 
 
 def save_and_predict(model, X_test, save_folder, hist, y_test):
@@ -85,7 +85,6 @@ def save_and_predict(model, X_test, save_folder, hist, y_test):
     df_output = pd.DataFrame(y_pred)
     df_output = df_output.rename(columns={0:"1", 1:"2", 2:"3"})
     df_output.to_csv(path_or_buf="{}softmax.csv".format(save_folder))
-
     df_pred_and_real = pd.DataFrame(columns=["predicted", "real"])
     df_pred_and_real["predicted"] = pd.Series(y_pred.argmax(axis=1))
     df_pred_and_real["real"] = pd.Series(y_test.argmax(axis=1))
@@ -102,20 +101,14 @@ def save_html_based_plots(df_pred_and_real, hist, save_folder):
 def make_and_save_epoch_dev_plot(hist, save_folder):
     data = []
     hist.index = hist.index + 1
-    data.append(
-        go.Scatter(
-            x=hist.index,
-            y=hist.accuracy,
-            name="Training Accuracy"
+    for i in hist.drop(columns=["val_loss", "loss"]).columns:
+        data.append(
+            go.Scatter(
+                x=hist.index,
+                y=hist[i],
+                name="{}".format(i)
+            )
         )
-    )
-    data.append(
-        go.Scatter(
-            x=hist.index,
-            y=hist.val_accuracy,
-            name="Validation Accuracy"
-        )
-    )
     fig = go.Figure(
         data=data
     )
@@ -126,18 +119,27 @@ def make_and_save_epoch_dev_plot(hist, save_folder):
 
 
 def get_groups(df: pd.DataFrame) -> list:
-    real_groups = df.groupby("real")
-    print(df.shape)
-    t1 = real_groups.get_group(0).groupby("predicted").count()
-    t2 = real_groups.get_group(1).groupby("predicted").count()
-    t3 = real_groups.get_group(2).groupby("predicted").count()
-   # print("t1 is of the size: {}".format(t1.shape))
-    #print("t2 is of the size: {}".format(t2.shape))
-   # print("t3 is of the size: {}".format(t3.shape))
-    first_data_bar = [t1.real.loc[0], t2.real.loc[0], t3.real.loc[0]]
-    second_data_bar = [t1.real.loc[1], t2.real.loc[1], t3.real.loc[1]]
-    third_data_bar = [t1.real.loc[2], t2.real.loc[2], t3.real.loc[2]]
-    return [first_data_bar, second_data_bar, third_data_bar]
+    real_groups = dict(list(df.groupby(["real", "predicted"])))
+    zero_data_bar = []
+    frist_data_bar = []
+    second_data_bar = []
+    for i in [(0,0), (0,1), (0,2), (1,0), (1,1), (1,2), (2,0), (2,1), (2,2)]:
+        if i[0] == 0:
+            if (i in list(real_groups.keys())):
+                zero_data_bar.append(real_groups[i].shape[0]) #num of rows equals number in bin'
+            else:
+                zero_data_bar.append(0)
+        if i[0] == 1:
+            if (i in list(real_groups.keys())):
+                frist_data_bar.append(real_groups[i].shape[0]) #num of rows equals number in bin'
+            else:
+                frist_data_bar.append(0)
+        if i[0] == 2:
+            if (i in list(real_groups.keys())):
+                second_data_bar.append(real_groups[i].shape[0]) #num of rows equals number in bin'
+            else:
+                second_data_bar.append(0)
+    return [zero_data_bar, frist_data_bar, second_data_bar]
 
 
 def make_and_save_binned_pred_and_true(df_pred_and_real, save_folder):

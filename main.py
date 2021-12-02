@@ -37,7 +37,6 @@ def static_train_test_data():
 if __name__ == '__main__':
 #    [train_data, test_data] = static_train_test_data()
 
- #   print("wae")
     # start_webserver()
     # [train_data, test_data] = read_data(base_path="../BenchmarkDatasets/",
     #                                     auction=False,
