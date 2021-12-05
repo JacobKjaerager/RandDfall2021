@@ -6,7 +6,21 @@ def get_hyper_opt_conf() -> list:
 	return [
     	{
 		"enabled_for_run": True,
-		"EPOCHS": 1,
+		"EPOCHS": 100,
+		"input_shape_sample": 60,
+		"input_shape_features": 40,
+		"data_dimensions": 3,
+		"model": ["deeplob"],
+		"optimizer": "adam",
+		"loss_function": "categorical_crossentropy",
+        "conv_filter_num": 16,
+        "inception_num": 32,
+        "lstm_num": 64,
+        "leaky_relu_alpha": 0.01
+	},
+    {
+		"enabled_for_run": True,
+		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
 		"data_dimensions": 3,
@@ -16,6 +30,104 @@ def get_hyper_opt_conf() -> list:
         "conv_filter_num": 16,
         "inception_num": 32,
         "lstm_num": 64,
+        "leaky_relu_alpha": 0.01
+	},
+    {
+		"enabled_for_run": True,
+		"EPOCHS": 100,
+		"input_shape_sample": 140,
+		"input_shape_features": 40,
+		"data_dimensions": 3,
+		"model": ["deeplob"],
+		"optimizer": "adam",
+		"loss_function": "categorical_crossentropy",
+        "conv_filter_num": 16,
+        "inception_num": 32,
+        "lstm_num": 64,
+        "leaky_relu_alpha": 0.01
+	},
+    {
+		"enabled_for_run": True,
+		"EPOCHS": 100,
+		"input_shape_sample": 100,
+		"input_shape_features": 40,
+		"data_dimensions": 3,
+		"model": ["deeplob"],
+		"optimizer": "adam",
+		"loss_function": "categorical_crossentropy",
+        "conv_filter_num": 24,
+        "inception_num": 48,
+        "lstm_num": 92,
+        "leaky_relu_alpha": 0.01
+	},
+    {
+		"enabled_for_run": True,
+		"EPOCHS": 100,
+		"input_shape_sample": 100,
+		"input_shape_features": 40,
+		"data_dimensions": 3,
+		"model": ["deeplob"],
+		"optimizer": "adam",
+		"loss_function": "categorical_crossentropy",
+        "conv_filter_num": 32,
+        "inception_num": 64,
+        "lstm_num": 128,
+        "leaky_relu_alpha": 0.01
+	},
+    {
+		"enabled_for_run": True,
+		"EPOCHS": 100,
+		"input_shape_sample": 60,
+		"input_shape_features": 40,
+		"data_dimensions": 3,
+		"model": ["deeplob"],
+		"optimizer": "adam",
+		"loss_function": "categorical_crossentropy",
+        "conv_filter_num": 24,
+        "inception_num": 48,
+        "lstm_num": 92,
+        "leaky_relu_alpha": 0.01
+	},
+    {
+		"enabled_for_run": True,
+		"EPOCHS": 100,
+		"input_shape_sample": 60,
+		"input_shape_features": 40,
+		"data_dimensions": 3,
+		"model": ["deeplob"],
+		"optimizer": "adam",
+		"loss_function": "categorical_crossentropy",
+        "conv_filter_num": 32,
+        "inception_num": 64,
+        "lstm_num": 128,
+        "leaky_relu_alpha": 0.01
+	},
+    {
+		"enabled_for_run": True,
+		"EPOCHS": 100,
+		"input_shape_sample": 140,
+		"input_shape_features": 40,
+		"data_dimensions": 3,
+		"model": ["deeplob"],
+		"optimizer": "adam",
+		"loss_function": "categorical_crossentropy",
+        "conv_filter_num": 24,
+        "inception_num": 48,
+        "lstm_num": 92,
+        "leaky_relu_alpha": 0.01
+	},
+    {
+		"enabled_for_run": True,
+		"EPOCHS": 100,
+		"input_shape_sample": 140,
+		"input_shape_features": 40,
+		"data_dimensions": 3,
+		"model": ["deeplob"],
+		"optimizer": "adam",
+		"loss_function": "categorical_crossentropy",
+        "conv_filter_num": 32,
+        "inception_num": 64,
+        "lstm_num": 128,
         "leaky_relu_alpha": 0.01
 	},
     {
@@ -34,7 +146,7 @@ def get_hyper_opt_conf() -> list:
         "hidden_layer_2_shape_2": 5
 	},
 	{
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 1,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -69,7 +181,7 @@ def get_hyper_opt_conf() -> list:
 		]
 	},
 	{
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 1,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -96,7 +208,7 @@ def get_hyper_opt_conf() -> list:
 		]
 	},
 	{
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 1,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
