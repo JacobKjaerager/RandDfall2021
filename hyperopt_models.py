@@ -39,7 +39,7 @@ def get_hyper_opt_conf() -> list:
 			}
 		]
 	},
-        {
+	{
 		"enabled_for_run": True,
 		"EPOCHS": 1,
 		"input_shape_sample": 100,
@@ -330,8 +330,8 @@ def get_hyper_opt_conf() -> list:
 				}
 			}
 		]
-	}
-    	{
+	},
+	{
 		"enabled_for_run": True,
 		"EPOCHS": 100,
 		"input_shape_sample": 60,
