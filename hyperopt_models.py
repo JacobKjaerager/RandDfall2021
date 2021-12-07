@@ -6,7 +6,7 @@ def get_hyper_opt_conf() -> list:
 	return [
     {
 		"enabled_for_run": True,
-		"EPOCHS": 1,
+		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
 		"data_dimensions": 3,
@@ -41,7 +41,7 @@ def get_hyper_opt_conf() -> list:
 	},
 	{
 		"enabled_for_run": True,
-		"EPOCHS": 1,
+		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
 		"data_dimensions": 3,
@@ -76,7 +76,7 @@ def get_hyper_opt_conf() -> list:
 	},
     {
 		"enabled_for_run": True,
-		"EPOCHS": 1,
+		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
 		"data_dimensions": 3,
@@ -111,7 +111,7 @@ def get_hyper_opt_conf() -> list:
 	},    
     {
 		"enabled_for_run": True,
-		"EPOCHS": 1,
+		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
 		"data_dimensions": 3,
@@ -147,7 +147,7 @@ def get_hyper_opt_conf() -> list:
 	},
     {
 		"enabled_for_run": True,
-		"EPOCHS": 1,
+		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
 		"data_dimensions": 3,
@@ -183,7 +183,7 @@ def get_hyper_opt_conf() -> list:
 	},
 	{
 		"enabled_for_run": True,
-		"EPOCHS": 1,
+		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
 		"data_dimensions": 3,
@@ -210,7 +210,7 @@ def get_hyper_opt_conf() -> list:
 	},
 	{
 		"enabled_for_run": True,
-		"EPOCHS": 1,
+		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
 		"data_dimensions": 3,
@@ -237,7 +237,7 @@ def get_hyper_opt_conf() -> list:
 	},
 	{
 		"enabled_for_run": True,
-		"EPOCHS": 1,
+		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
 		"data_dimensions": 3,
@@ -264,7 +264,7 @@ def get_hyper_opt_conf() -> list:
 	},
 	{
 		"enabled_for_run": True,
-		"EPOCHS": 1,
+		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
 		"data_dimensions": 3,
@@ -332,7 +332,7 @@ def get_hyper_opt_conf() -> list:
 		]
 	},
 	{
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 100,
 		"input_shape_sample": 60,
 		"input_shape_features": 40,
@@ -346,7 +346,7 @@ def get_hyper_opt_conf() -> list:
         "leaky_relu_alpha": 0.01
 	},
     {
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -360,7 +360,7 @@ def get_hyper_opt_conf() -> list:
         "leaky_relu_alpha": 0.01
 	},
     {
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 100,
 		"input_shape_sample": 140,
 		"input_shape_features": 40,
@@ -374,7 +374,7 @@ def get_hyper_opt_conf() -> list:
         "leaky_relu_alpha": 0.01
 	},
     {
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -388,7 +388,7 @@ def get_hyper_opt_conf() -> list:
         "leaky_relu_alpha": 0.01
 	},
     {
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -402,7 +402,7 @@ def get_hyper_opt_conf() -> list:
         "leaky_relu_alpha": 0.01
 	},
     {
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 100,
 		"input_shape_sample": 60,
 		"input_shape_features": 40,
@@ -416,7 +416,7 @@ def get_hyper_opt_conf() -> list:
         "leaky_relu_alpha": 0.01
 	},
     {
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 100,
 		"input_shape_sample": 60,
 		"input_shape_features": 40,
@@ -430,7 +430,7 @@ def get_hyper_opt_conf() -> list:
         "leaky_relu_alpha": 0.01
 	},
     {
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 100,
 		"input_shape_sample": 140,
 		"input_shape_features": 40,
@@ -444,7 +444,7 @@ def get_hyper_opt_conf() -> list:
         "leaky_relu_alpha": 0.01
 	},
     {
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 100,
 		"input_shape_sample": 140,
 		"input_shape_features": 40,
