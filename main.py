@@ -45,8 +45,8 @@ if __name__ == '__main__':
     #                                     combine_test=True)
 
     start = time.time()
-    train_data = pd.read_csv("../pickle_files/training_data.csv")
-    test_data = pd.read_csv("../pickle_files/test_data.csv")
+    train_data = pd.read_csv("../pickle_files/training_data.csv").drop(columns=["Unnamed: 0"])
+    test_data = pd.read_csv("../pickle_files/test_data.csv").drop(columns=["Unnamed: 0"])
     end1 = time.time()
     hyper_opt_models = get_hyper_opt_conf()
     # X_train = X_train.reshape(len(X_train), 10, 40, 1)

@@ -17,6 +17,8 @@ def compile_and_train_models(hyperopt_confs: dict,
                              train_data: pd.DataFrame,
                              test_data: pd.DataFrame,
                              Control_dict: dict) -> None:
+
+
     for model_params in hyperopt_confs: #Individual model
         if model_params["enabled_for_run"]:
             reshaper_train = []
@@ -64,15 +66,15 @@ def compile_and_train_models(hyperopt_confs: dict,
                           loss=model_params["loss_function"],
                           metrics=['accuracy'])
             history = model.fit(x=X_train,
-                      y=y_train,
-                      epochs=model_params["EPOCHS"],
-                      verbose=1,
-                      shuffle=False,
-                      validation_data=(X_test, y_test))
+                                y=y_train,
+                                epochs=model_params["EPOCHS"],
+                                verbose=1,
+                                shuffle=False,
+                                validation_data=(X_test, y_test))
 
             save_folder = '{}/{}_fitted_on_{}_EPOCHS/'.format(Control_dict["models_save_folder"],
-                                                                dt.now().strftime("%d-%m-%y-%H-%M-%S"),
-                                                                model_params["EPOCHS"])
+                                                              dt.now().strftime("%d-%m-%y-%H-%M-%S"),
+                                                              model_params["EPOCHS"])
             model.save(save_folder)
             hist = pd.DataFrame.from_dict(history.history)
             hist.to_csv(path_or_buf="{}history.csv".format(save_folder))
@@ -83,7 +85,7 @@ def compile_and_train_models(hyperopt_confs: dict,
 def save_and_predict(model, X_test, save_folder, hist, y_test):
     y_pred = model.predict(x=X_test, verbose=0)
     df_output = pd.DataFrame(y_pred)
-    df_output = df_output.rename(columns={0:"1", 1:"2", 2:"3"})
+    df_output = df_output.rename(columns={0:"0", 1:"1", 2:"2"})
     df_output.to_csv(path_or_buf="{}softmax.csv".format(save_folder))
     df_pred_and_real = pd.DataFrame(columns=["predicted", "real"])
     df_pred_and_real["predicted"] = pd.Series(y_pred.argmax(axis=1))
