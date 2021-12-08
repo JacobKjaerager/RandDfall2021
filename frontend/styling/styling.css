@@ -9,13 +9,8 @@ body{
 }
 
 .right_side_of_view{
-    width: 70%;
+    width: 100%;
     float: right;
-}
-
-.left_half_of_view {
-    float:left;
-    width: 25%;
 }
 
 .datatable{
@@ -23,21 +18,7 @@ body{
     padding: 1%
 }
 
-.ttb{
-    margin-left:1%;
-    
-}
-.filter-main-component{
-    margin-left: 2%;
-    width: 100%;
-    border-radius: .2em;
-    border: 1px solid #cccccc;
-    background-color:white;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
-    text-align:left;
-}
-
-.card-datatable-hyperparameters {
+.card-datatable-ttb{
     width:95%;
     border-radius: .2em;
     border: 1px solid #cccccc;
@@ -45,12 +26,6 @@ body{
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
     text-align:left;
     padding:1%
-}
-
-.all-model-selector {
-    width: 95%; 
-    margin-bottom: 1%;
-    padding: 1%
 }
 
 .graph-card{
@@ -62,25 +37,5 @@ body{
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
     text-align:left;
     padding:1%
-}
-
-.game-evaluation-graph{
-    width: 98%;
-    padding: 1%
-}
-.latest-update{
-    width: 98%;
-    padding: 1%
-}
-
-.card-background-max-ttb{
-    margin-left: 2%;
-    width: 100%;
-    margin-top:2%;
-    border-radius: .2em;
-    border: 1px solid #cccccc;
-    background-color:white;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
-    text-align:left;
 }
 
