@@ -6,11 +6,9 @@ Created on Tue Sep 15 20:06:24 2020
 """
 
 import dash
-import dash_table
 import pandas as pd
 import plotly.graph_objs as go
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import dcc, html, dash_table
 
 def layout(app):
     app.layout = \

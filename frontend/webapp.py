@@ -5,7 +5,8 @@ from frontend.layout import layout
 from frontend.supporting_functions import DataObject
 import socket
 
-def start_webserver(local_host: bool):
+
+def start_webserver(local_host: bool=True):
     Do = DataObject().get_data()
     app = dash.Dash(
         __name__,
