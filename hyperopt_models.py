@@ -6,7 +6,7 @@ def get_hyper_opt_conf() -> list:
 	return [
 	{
 		"enabled_for_run": True,
-		"EPOCHS": 300,
+		"EPOCHS": 200,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
 		"data_dimensions": 3,
@@ -18,6 +18,36 @@ def get_hyper_opt_conf() -> list:
 		"hidden_layer_1_shape_2": 10,
 		"hidden_layer_2_shape_1": 120,
 		"hidden_layer_2_shape_2": 5
+	},
+    {
+		"enabled_for_run": True,
+		"EPOCHS": 200,
+		"input_shape_sample": 100,
+		"input_shape_features": 40,
+		"data_dimensions": 3,
+		"model": ["tabl"],
+		"optimizer": "adam",
+		"loss_function": "categorical_crossentropy",
+		"dropout": 0.1,
+		"hidden_layer_1_shape_1": 40,
+		"hidden_layer_1_shape_2": 8,
+		"hidden_layer_2_shape_1": 80,
+		"hidden_layer_2_shape_2": 4
+	},
+    {
+		"enabled_for_run": True,
+		"EPOCHS": 200,
+		"input_shape_sample": 100,
+		"input_shape_features": 40,
+		"data_dimensions": 3,
+		"model": ["tabl"],
+		"optimizer": "adam",
+		"loss_function": "categorical_crossentropy",
+		"dropout": 0.1,
+		"hidden_layer_1_shape_1": 80,
+		"hidden_layer_1_shape_2": 12,
+		"hidden_layer_2_shape_1": 160,
+		"hidden_layer_2_shape_2": 6
 	},
     {
 		"enabled_for_run": False,
@@ -161,7 +191,7 @@ def get_hyper_opt_conf() -> list:
 		]
 	},
     {
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -197,7 +227,7 @@ def get_hyper_opt_conf() -> list:
 		]
 	},
 	{
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -361,7 +391,7 @@ def get_hyper_opt_conf() -> list:
         "leaky_relu_alpha": 0.01
 	},
     {
-		"enabled_for_run": False,
+		"enabled_for_run": True,
 		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -389,7 +419,7 @@ def get_hyper_opt_conf() -> list:
         "leaky_relu_alpha": 0.01
 	},
     {
-		"enabled_for_run": False,
+		"enabled_for_run": True,
 		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -403,7 +433,7 @@ def get_hyper_opt_conf() -> list:
         "leaky_relu_alpha": 0.01
 	},
     {
-		"enabled_for_run": False,
+		"enabled_for_run": True,
 		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
