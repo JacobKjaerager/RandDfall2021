@@ -30,7 +30,7 @@ def save_to_graph(Do, column):
 
 def start_webserver(local_host: bool=True):
     current_column = "accuracy"
-    Do = DataObject().get_data(current_column)
+    Do = DataObject().run_ensemble_data()
     print("ewaf")
     save_to_graph(Do, current_column)
     app = dash.Dash(
