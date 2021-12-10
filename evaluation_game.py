@@ -1,5 +1,8 @@
 import random
 import matplotlib.pyplot as plt
+import plotly.graph_objs as go
+from sklearn.metrics import accuracy_score
+
 def update_initail_stake(old_price_minus_brokage,
                          fortune_development,
                          brokerage):
@@ -48,17 +51,66 @@ def run_game(df,
                                                  fortune_development=correct_return,
                                                  brokerage=brokerage)
 
-    plt.plot(possible_positions, current_fortune, label='{}'.format(legend_name))
-    plt.legend(loc="upper left")
-    plt.title("End_fortune: {}, brokerage: {}, correct_return: {}, wrong_return: {}, uniform_parameter: {}".format(
-        initial_stake, brokerage, correct_return, wrong_return,uniform_parameter
-    ))
-    plt.show()
-    return initial_stake
+    return [possible_positions, current_fortune, legend_name]
+
+
+def save_weights(df):
+    data = []
+    for i in df.columns:
+        data.append(
+            go.Scatter(
+                x=df.index,
+                y=df[i],
+                name="{}".format(i)
+            )
+        )
+    fig = go.Figure(
+        data=data
+    )
+    fig.update_layout(title="Weight development over time",
+                      xaxis_title='Possible positions',
+                      yaxis_title="Current weight")
+    fig.write_html("{}_{}.html".format("../global_saves/", "weights_for_ensemble"))
+
+
+def save_ensemble_and_stuff(df):
+    q = []
+    data = []
+    brokerage= 0.00089
+    initial_stake= 100
+    correct_return=0.002
+    wrong_return=-0.002
+    uniform_parameter=0.002
+    for i in df.columns:
+        if i != "real":
+            df2 = df[["real", i]].rename(columns={i: "predicted"})
+            q.append(run_game(df=df2,
+                              brokerage= brokerage,
+                              initial_stake= initial_stake ,
+                              correct_return=correct_return,
+                              wrong_return=wrong_return,
+                              uniform_parameter=uniform_parameter,
+                              legend_name=i)
+             )
+    for i in q:
+        data.append(
+            go.Scatter(
+                x=i[0],
+                y=i[1],
+                name="{}".format(i[2] + ", Acc: {}".format(round(accuracy_score(df["real"], df[i[2]]),3)))
+            )
+        )
+    fig = go.Figure(
+        data=data
+    )
+    fig.update_layout(title="End_fortune: {}, brokerage: {}, correct_return: {}, wrong_return: {}, uniform_parameter: {}".format(
+        initial_stake, brokerage, correct_return, wrong_return, uniform_parameter
+    ),
+                      xaxis_title='Possible position',
+                      yaxis_title="Current fortune")
+    fig.write_html("{}_{}.html".format("../global_saves/", "ensemble_pred_comp"))
 
 if __name__ == '__main__':
-    df2 = pd.read_csv("../global_saves/ensemble_pred_ceil_2_floor_0_002_deduction_factor.csv").drop(colums=[[]])
-    for i in df2.columns:
-        if i != "real":
-            df = df2[["real", i]].rename(columns={i: "predicted"})
-            run_game(df, brokerage=0.00089, legend_name=i)
+    df1 = pd.read_csv("../global_saves/ensemble_pred_ceil_2_floor_0_002_deduction_factor.csv").drop(colums=[[]])
+
+
