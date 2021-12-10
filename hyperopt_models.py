@@ -5,7 +5,7 @@ import numpy as np
 def get_hyper_opt_conf() -> list:
 	return [
 	{
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 200,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -20,7 +20,7 @@ def get_hyper_opt_conf() -> list:
 		"hidden_layer_2_shape_2": 5
 	},
     {
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 200,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -35,7 +35,7 @@ def get_hyper_opt_conf() -> list:
 		"hidden_layer_2_shape_2": 4
 	},
     {
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 200,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -254,7 +254,7 @@ def get_hyper_opt_conf() -> list:
 		]
 	},
 	{
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -281,7 +281,7 @@ def get_hyper_opt_conf() -> list:
 		]
 	},
 	{
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -308,7 +308,7 @@ def get_hyper_opt_conf() -> list:
 		]
 	},
 	{
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -330,48 +330,6 @@ def get_hyper_opt_conf() -> list:
 				"layer_arguments": {
 						"units": 3,
 						"activation": "softmax"
-				}
-			}
-		]
-	},
-	{
-		"enabled_for_run": False,
-		"EPOCHS": 100,
-		"input_shape_sample": 100,
-		"input_shape_features": 40,
-		"data_dimensions": 4,
-		"model": "sequential",
-		"optimizer": "adam",
-		"loss_function": "categorical_crossentropy",
-		"layers": [
-			{
-				"layer_type": "conv2d",
-				"layer_arguments": {
-					"filters": 80,
-					"kernel_size": 3,
-					"activation": "tanh",
-					"input_shape": (100, 40, 1)
-				}
-			},
-			{
-				"layer_type": "conv2d",
-				"layer_arguments": {
-					"filters": 40,
-					"kernel_size": 3,
-					"activation": "tanh"
-				}
-			},
-			{
-				"layer_type": "flatten",
-				"layer_arguments": {
-
-				}
-			},
-			{
-				"layer_type": "dense",
-				"layer_arguments": {
-					"units": 3,
-					"activation": "softmax"
 				}
 			}
 		]
@@ -516,6 +474,48 @@ def get_hyper_opt_conf() -> list:
         "hidden_layer_1_shape_2": 10,
         "hidden_layer_2_shape_1": 120,
         "hidden_layer_2_shape_2": 5
+	},
+    	{
+		"enabled_for_run": True,
+		"EPOCHS": 100,
+		"input_shape_sample": 100,
+		"input_shape_features": 40,
+		"data_dimensions": 4,
+		"model": "sequential",
+		"optimizer": "adam",
+		"loss_function": "categorical_crossentropy",
+		"layers": [
+			{
+				"layer_type": "conv2d",
+				"layer_arguments": {
+					"filters": 80,
+					"kernel_size": 3,
+					"activation": "tanh",
+					"input_shape": (100, 40, 1)
+				}
+			},
+			{
+				"layer_type": "conv2d",
+				"layer_arguments": {
+					"filters": 40,
+					"kernel_size": 3,
+					"activation": "tanh"
+				}
+			},
+			{
+				"layer_type": "flatten",
+				"layer_arguments": {
+
+				}
+			},
+			{
+				"layer_type": "dense",
+				"layer_arguments": {
+					"units": 3,
+					"activation": "softmax"
+				}
+			}
+		]
 	},
 ]
 
