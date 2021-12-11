@@ -1,5 +1,7 @@
 from keras.models import Sequential
 from keras.layers import Dense, LSTM
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.callbacks import ReduceLROnPlateau 
 from datetime import datetime as dt
 import pandas as pd
 import json
@@ -62,14 +64,17 @@ def compile_and_train_models(hyperopt_confs: dict,
                         model.add(
                             layer=layer["layer_type"]()
                         )
-            model.compile(optimizer=model_params["optimizer"],
+            reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=15)
+            model.compile(optimizer=model_params["optimizer"],,
                           loss=model_params["loss_function"],
                           metrics=['accuracy'])
             history = model.fit(x=X_train,
                                 y=y_train,
                                 epochs=model_params["EPOCHS"],
-                                verbose=1,
+                                batch_size=32,
+				verbose=1,
                                 shuffle=False,
+                                callbacks=[reduce_lr],
                                 validation_data=(X_test, y_test))
 
             save_folder = '{}/{}_fitted_on_{}_EPOCHS/'.format(Control_dict["models_save_folder"],

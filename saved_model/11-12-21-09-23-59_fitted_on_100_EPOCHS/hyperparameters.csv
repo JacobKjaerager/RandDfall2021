@@ -1,0 +1,2 @@
+,enabled_for_run,EPOCHS,input_shape_sample,input_shape_features,data_dimensions,model,optimizer,loss_function,conv_filter_num,inception_num,lstm_num,leaky_relu_alpha
+0,True,100,100,40,3,deeplob,adam,categorical_crossentropy,32,64,128,0.01

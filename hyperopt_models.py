@@ -349,7 +349,7 @@ def get_hyper_opt_conf() -> list:
         "leaky_relu_alpha": 0.01
 	},
     {
-		"enabled_for_run": False,
+		"enabled_for_run": True,
 		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -377,7 +377,7 @@ def get_hyper_opt_conf() -> list:
         "leaky_relu_alpha": 0.01
 	},
     {
-		"enabled_for_run": False,
+		"enabled_for_run": True,
 		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -391,7 +391,7 @@ def get_hyper_opt_conf() -> list:
         "leaky_relu_alpha": 0.01
 	},
     {
-		"enabled_for_run": False,
+		"enabled_for_run": True,
 		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -476,7 +476,7 @@ def get_hyper_opt_conf() -> list:
         "hidden_layer_2_shape_2": 5
 	},
     	{
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
