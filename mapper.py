@@ -65,7 +65,7 @@ def compile_and_train_models(hyperopt_confs: dict,
                             layer=layer["layer_type"]()
                         )
             reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=15)
-            model.compile(optimizer=model_params["optimizer"],,
+            model.compile(optimizer=model_params["optimizer"],
                           loss=model_params["loss_function"],
                           metrics=['accuracy'])
             history = model.fit(x=X_train,
@@ -195,4 +195,25 @@ def get_test_set() -> list:
     y_test = pd.DataFrame(test_set["y_test"])[[0]]
 
     return [X_test, y_test]
+
+if __name__ == '__main__':
+    train_data = pd.read_csv("../pickle_files/training_data.csv").drop(columns=["Unnamed: 0"])
+    test_data = pd.read_csv("../pickle_files/test_data.csv").drop(columns=["Unnamed: 0"])
+    reshaper_train = []
+    reshaper_test = []
+    [X_train, y_train] = get_model_data(data=train_data,
+                                        sample_size=100,
+                                        feature_num=40)
+    [X_test, y_test] = get_model_data(data=test_data,
+                                      sample_size=100,
+                                      feature_num=40)
+    for i in range(4):
+        reshaper_train.append(X_train.shape[i])
+        reshaper_test.append(X_test.shape[i])
+    X_train = X_train.reshape(reshaper_train)
+    X_test = X_test.reshape(reshaper_test)
+    save_folder = '12-12-21-05-08-04_fitted_on_100_EPOCHS/'
+    hist = pd.read_csv("{}history.csv".format(save_folder))
+    model =  tf.keras.models.load_model('{}'.format(save_folder))
+    save_and_predict(model, X_test, save_folder, hist, y_test)
 

@@ -30,7 +30,7 @@ class DataObject:
             df.loc[0:pred_length, col + "_weight"] = 1
         df.loc[:, "ensemble_pred"] = np.NaN
         i = 0
-        test_set_size = math.ceil(df.shape[0]/2) - pred_length
+        test_set_size = math.ceil(df.shape[0]) - pred_length
         for index, row in df.iloc[0:test_set_size].iterrows():
             if index%(math.ceil(test_set_size/100)) == 0:
                 print("{}% finished".format(i))
