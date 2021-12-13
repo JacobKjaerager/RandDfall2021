@@ -212,8 +212,8 @@ if __name__ == '__main__':
         reshaper_test.append(X_test.shape[i])
     X_train = X_train.reshape(reshaper_train)
     X_test = X_test.reshape(reshaper_test)
-    save_folder = '12-12-21-05-08-04_fitted_on_100_EPOCHS/'
+    save_folder = 'saved_model/11-12-21-02-47-40_fitted_on_100_EPOCHS/'
     hist = pd.read_csv("{}history.csv".format(save_folder))
-    model =  tf.keras.models.load_model('{}'.format(save_folder))
+    model = tf.keras.models.load_model('{}'.format(save_folder))
     save_and_predict(model, X_test, save_folder, hist, y_test)
 
