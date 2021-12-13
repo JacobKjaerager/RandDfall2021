@@ -1,9 +1,9 @@
 import dash
 from pathlib import Path
-from frontend.callbacks import init_callback
-from frontend.layout import layout
-from frontend.supporting_functions import DataObject
-import socket
+#from frontend.callbacks import init_callback
+#from frontend.layout import layout
+from supporting_functions import DataObject
+#import socket
 import plotly.graph_objs as go
 
 

@@ -1,0 +1,5 @@
+,enabled_for_run,EPOCHS,input_shape_sample,input_shape_features,data_dimensions,model,optimizer,loss_function,layers
+0,True,100,100,40,4,sequential,adam,categorical_crossentropy,"{'layer_type': 'conv2d', 'layer_arguments': {'filters': 80, 'kernel_size': (1, 2), 'strides': (1, 2), 'activation': 'tanh', 'input_shape': (100, 40, 1)}}"
+1,True,100,100,40,4,sequential,adam,categorical_crossentropy,"{'layer_type': 'conv2d', 'layer_arguments': {'filters': 40, 'kernel_size': (4, 1), 'activation': 'tanh'}}"
+2,True,100,100,40,4,sequential,adam,categorical_crossentropy,"{'layer_type': 'flatten', 'layer_arguments': {}}"
+3,True,100,100,40,4,sequential,adam,categorical_crossentropy,"{'layer_type': 'dense', 'layer_arguments': {'units': 3, 'activation': 'softmax'}}"

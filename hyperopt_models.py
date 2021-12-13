@@ -5,7 +5,7 @@ import numpy as np
 def get_hyper_opt_conf() -> list:
 	return [
     {
-        "enabled_for_run": True,
+        "enabled_for_run": False,
         "EPOCHS": 1,
         "input_shape_sample": 100,
         "input_shape_features": 40,
@@ -47,7 +47,7 @@ def get_hyper_opt_conf() -> list:
         ]
 	},
     {
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 1,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -82,7 +82,7 @@ def get_hyper_opt_conf() -> list:
 		]
 	},
     {
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 1,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -109,7 +109,7 @@ def get_hyper_opt_conf() -> list:
 		]
 	},
         {
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 1,
 		"input_shape_sample": 140,
 		"input_shape_features": 40,
@@ -467,7 +467,7 @@ def get_hyper_opt_conf() -> list:
         "leaky_relu_alpha": 0.01
 	},
     {
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -495,7 +495,7 @@ def get_hyper_opt_conf() -> list:
         "leaky_relu_alpha": 0.01
 	},
     {
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -509,7 +509,7 @@ def get_hyper_opt_conf() -> list:
         "leaky_relu_alpha": 0.01
 	},
     {
-		"enabled_for_run": True,
+		"enabled_for_run": False,
 		"EPOCHS": 100,
 		"input_shape_sample": 100,
 		"input_shape_features": 40,
@@ -594,7 +594,7 @@ def get_hyper_opt_conf() -> list:
         "hidden_layer_2_shape_2": 5
 	},
     {
-        "enabled_for_run": False,
+        "enabled_for_run": True,
         "EPOCHS": 100,
         "input_shape_sample": 100,
         "input_shape_features": 40,
@@ -607,7 +607,8 @@ def get_hyper_opt_conf() -> list:
                 "layer_type": "conv2d",
                 "layer_arguments": {
                     "filters": 80,
-                    "kernel_size": 3,
+                    "kernel_size": (1,2),
+                    "strides": (1,2),
                     "activation": "tanh",
                     "input_shape": (100, 40, 1)
                 }
@@ -616,7 +617,7 @@ def get_hyper_opt_conf() -> list:
                 "layer_type": "conv2d",
                 "layer_arguments": {
                     "filters": 40,
-                    "kernel_size": 3,
+                    "kernel_size": (4,1),
                     "activation": "tanh"
                 }
             },
