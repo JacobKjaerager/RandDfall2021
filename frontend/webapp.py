@@ -47,7 +47,5 @@ def start_webserver(local_host: bool=True):
 
 
 if __name__ == '__main__':
-    start_webserver(local_host=True)
-
-    print("weaf")
+    Do = DataObject().run_ensemble_data()
 
