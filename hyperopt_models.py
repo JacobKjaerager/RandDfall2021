@@ -5,6 +5,87 @@ import numpy as np
 def get_hyper_opt_conf() -> list:
 	return [
     {
+		"enabled_for_run": False,
+		"EPOCHS": 1,
+		"input_shape_sample": 100,
+		"input_shape_features": 40,
+		"data_dimensions": 3,
+		"model": "sequential",
+		"optimizer": "adam",
+		"loss_function": "categorical_crossentropy",
+		"layers": [
+			{
+				"layer_type": "lstm",
+				"layer_arguments": {
+					"units": 50,
+					"activation": "tanh",
+					"input_shape": (100, 40)
+				}
+			},
+			{
+				"layer_type": "dense",
+				"layer_arguments": {
+						"units": 3,
+						"activation": "softmax"
+				}
+			}
+		]
+	},
+    {
+		"enabled_for_run": False,
+		"EPOCHS": 1,
+		"input_shape_sample": 100,
+		"input_shape_features": 40,
+		"data_dimensions": 3,
+		"model": "sequential",
+		"optimizer": "adam",
+		"loss_function": "categorical_crossentropy",
+		"layers": [
+			{
+				"layer_type": "lstm",
+				"layer_arguments": {
+					"units": 80,
+					"activation": "tanh",
+					"input_shape": (100, 40)
+				}
+			},
+			{
+				"layer_type": "dense",
+				"layer_arguments": {
+						"units": 3,
+						"activation": "softmax"
+				}
+			}
+		]
+	},
+    {
+		"enabled_for_run": False,
+		"EPOCHS": 1,
+		"input_shape_sample": 100,
+		"input_shape_features": 40,
+		"data_dimensions": 3,
+		"model": "sequential",
+		"optimizer": "adam",
+		"loss_function": "categorical_crossentropy",
+		"layers": [
+			{
+				"layer_type": "lstm",
+				"layer_arguments": {
+					"units": 120,
+					"activation": "tanh",
+					"input_shape": (100, 40)
+				}
+			},
+			{
+				"layer_type": "dense",
+				"layer_arguments": {
+						"units": 3,
+						"activation": "softmax"
+				}
+			}
+		]
+	}, 
+    {
         "enabled_for_run": False,
         "EPOCHS": 1,
         "input_shape_sample": 100,
