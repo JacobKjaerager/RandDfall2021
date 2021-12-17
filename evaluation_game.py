@@ -85,8 +85,8 @@ def save_ensemble_and_stuff(df):
         if i != "real":
             df2 = df[["real", i]].rename(columns={i: "predicted"})
             q.append(run_game(df=df2,
-                              brokerage= brokerage,
-                              initial_stake= initial_stake ,
+                              brokerage=brokerage,
+                              initial_stake=initial_stake,
                               correct_return=correct_return,
                               wrong_return=wrong_return,
                               uniform_parameter=uniform_parameter,
